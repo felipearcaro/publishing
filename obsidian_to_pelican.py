@@ -1,6 +1,7 @@
 import shutil
 import os
 import re
+import logging
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,6 +14,7 @@ LINK_SYNTAX = "{filename}"
 IMAGE_SYNTAX = "{attach}"
 IMAGE_CSS_CLASS = "{: .image-process-large-photo}"
 
+logging.basicConfig(level=logging.INFO)
 
 def replace_image_reference(content):
     """
@@ -67,18 +69,18 @@ def clear_content_folder():
         shutil.rmtree(CONTENT_DESTINATION_PATH)
 
     os.makedirs(CONTENT_DESTINATION_PATH)
-    print("Content folder has been cleared out.")
+    logging.info("Content folder has been cleared out.")
 
 
 def copy_images_folder():
     """
         Copy images folder from Obsidian to content folder.
     """
-    print("Copying images folder...")
+    logging.info("Copying images folder...")
     try:
         shutil.copytree(IMAGES_SOURCE_PATH, IMAGES_DESTINATION_PATH)
     except FileExistsError as e:
-        print(e)
+        logging.error(e)
 
 
 if __name__ == "__main__":
@@ -91,7 +93,7 @@ if __name__ == "__main__":
     for file in os.listdir(CONTENT_SOURCE_PATH):
         file_path = os.path.join(CONTENT_SOURCE_PATH, file)
 
-        print(f"Copying {file}...")
+        logging.info(f"Copying {file}...")
 
         # Read the original file
         with open(file_path, "r") as f:
