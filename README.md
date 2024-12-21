@@ -16,3 +16,5 @@ Make sure your files have the following metadata at the top:
 - Category: A category
 - Tags: tag1, tag2
 - Summary: A summary
+
+There, you can run `publish.sh` script.
